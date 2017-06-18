@@ -34,13 +34,13 @@ parser.add_argument('-tt', '--traverse_time', type=int, default=3,
                             help='how many times to traverse the train dataset')
 parser.add_argument('-ep', '--epoch_num', type=int, default=50,
                             help='how many epoch')
-parser.add_argument('-id', '--gpu_id', type=int, default=0,
-                            help='how many epoch')
+parser.add_argument('-id', '--gpu_id', type=str, default="",
+                            help='gpu id')
 
 args = parser.parse_args()
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
+os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_id
 
 # Data sets
 model_name = args.model_name
@@ -54,6 +54,7 @@ input_size = 8
 epoch_num = args.epoch_num
 batch_size = args.batch_size
 train_times = args.traverse_time
+one_feature = False
 if model_name == "BaselineModel":
     one_feature = True
     time_step = 1
